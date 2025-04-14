@@ -1,35 +1,39 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
 
-function App() {
-  const [count, setCount] = useState(0)
+function YoutubeSearch() {
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [results, setResults] = useState([]);
 
+  const handleSearch = async () => {
+    const apiKey = 'AIzaSyBXj-YM_wRez3b063oxWhk924kIXMP0Ff0';
+    const apiUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=basketball&key=${apiKey}&publishedAfter=${startDate}T00:00:00Z&publishedBefore=${endDate}T23:59:59Z`;
+
+    try {
+      const response = await fetch(apiUrl);
+      const data = await response.json();
+      setResults(data.items);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+ 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div>
+      <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
+      <input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
+      <button onClick={handleSearch}>Search</button>
+
+      <ul>
+        {results.map((item) => (
+          <li key={item.id.videoId}>
+             <img src={item.snippet.thumbnails.high.url} alt="Thumbnail" />
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 }
 
-export default App
+export default YoutubeSearch;
+
