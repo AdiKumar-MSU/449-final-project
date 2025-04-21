@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 import Axios from 'axios'
+import { supabase } from './supabase';
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 
@@ -33,7 +34,12 @@ function KeywordSearch() {
     
     if (res.data.items.length > 0) {
       const randomIndex = Math.floor(Math.random() * res.data.items.length);
-      setDisplayVid(res.data.items[randomIndex]);
+      const selectedVideo = res.data.items[randomIndex];
+      setDisplayVid(selectedVideo);
+
+      await supabase.from('search_logs').insert([
+        { video_id: selectedVideo.id.videoId }
+      ]);
     }
   };
 
