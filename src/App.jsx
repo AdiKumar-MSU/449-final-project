@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import './App.css'
 
 function App() {
@@ -8,10 +7,10 @@ function App() {
         <header className="header">
           <h1 className = "title">CYTC</h1>
         </header>
-        <body className="body">
+        <div className="body">
           <h3 className="KeyWords">Enter Key Search Words:</h3>
-          <h3 className="Date Range">Enter Date Range Here:</h3>
-        </body>
+          <h3 className="DateRange">Enter Date Range Here:</h3>
+        </div>
       </div>
     </>  
   )
