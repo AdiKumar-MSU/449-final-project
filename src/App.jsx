@@ -9,8 +9,11 @@ function KeywordSearch() {
   const [searchTerm, setSearchTerm] = useState('');
   const [prevTerm, setPrevTerm] = useState('');
   const [displayVid, setDisplayVid] = useState('');
+
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
   
-  const searchYT = async (searchTerm) => {
+  const searchYT = async (searchTerm, endDate, startDate) => {
 
     const res = await Axios.get(
       'https://www.googleapis.com/youtube/v3/search', {
@@ -19,7 +22,9 @@ function KeywordSearch() {
           q: searchTerm,
           type: 'video',
           maxResults: 6,
-          key: API_KEY
+          key: API_KEY,
+          publishedAfter: startDate,
+          publishedBefore: endDate
         }
       }
     );
@@ -35,7 +40,7 @@ function KeywordSearch() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (searchTerm.trim() != prevTerm.trim()) {
-      searchYT(searchTerm);
+      searchYT(searchTerm, endDate, startDate);
     } else {
       if (videos.length > 0) {
         const randomIndex = Math.floor(Math.random() * videos.length);
@@ -48,12 +53,16 @@ function KeywordSearch() {
     <>
       <div className="videoSearch">
         <form onSubmit={handleSubmit}>
+          <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
+          <input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
+          
           <input
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Search YouTube"
           />
+
           <button type="submit">
             Search
           </button>
@@ -77,4 +86,4 @@ function KeywordSearch() {
 };
 
 
-export default KeywordSearch
+export default KeywordSearch;
