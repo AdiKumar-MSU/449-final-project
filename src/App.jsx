@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 import Axios from 'axios'
+require('dotenv').config();
 
-const API_KEY = 'AIzaSyBXj-YM_wRez3b063oxWhk924kIXMP0Ff0'
+const API_KEY = process.env.API_KEY;
 
 function KeywordSearch() {
   const [videos, setVideos] = useState([]);
