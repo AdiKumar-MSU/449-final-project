@@ -14,6 +14,10 @@ function KeywordSearch() {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   
+  const formatDate = (dateString) => {
+    return dateString ? `${dateString}T00:00:00Z` : null;
+  };
+
   const searchYT = async (searchTerm, endDate, startDate) => {
 
     const res = await Axios.get(
@@ -22,7 +26,7 @@ function KeywordSearch() {
           part: 'snippet',
           q: searchTerm,
           type: 'video',
-          maxResults: 6,
+          maxResults: 20,
           key: API_KEY,
           publishedAfter: startDate,
           publishedBefore: endDate
@@ -46,7 +50,7 @@ function KeywordSearch() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (searchTerm.trim() != prevTerm.trim()) {
-      searchYT(searchTerm, endDate, startDate);
+      searchYT(searchTerm, formatDate(endDate), formatDate(startDate));
     } else {
       if (videos.length > 0) {
         const randomIndex = Math.floor(Math.random() * videos.length);
