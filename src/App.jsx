@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import './App.css'
 import Axios from 'axios'
 
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 function KeywordSearch() {
   const [videos, setVideos] = useState([]);
