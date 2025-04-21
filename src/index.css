@@ -8,7 +8,7 @@
   flex-direction: column;
 }
 
-.header{
+.header {
   background-color: black;
   width: 100%;
   height: 150px;
@@ -24,7 +24,7 @@
 }
 
 .yellow {
-  background-color: #F6BB08;;
+  background-color: #F6BB08;
   border-radius: 30px;
   width: 272px;
   height: 36px;
