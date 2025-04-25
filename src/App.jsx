@@ -5,6 +5,8 @@ import Axios from 'axios'
 import { supabase } from './supabase';
 import { useTheme } from './ThemeContext'; 
 import MyComponent from './components/MyComponent';
+import Logo from './assets/images/CYTC-Logo.png';
+
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 
@@ -121,6 +123,7 @@ function App() {
     <div data-theme={isDarkMode ? 'dark' : 'light'}>
       <div className="page">
         <header className="header">
+          <img src={Logo} alt ="CYTC Logo" className="logo"/>
           <h1 className = "title">CYTC</h1>
           <h2 className = "yellow">Custom Youtube Cinema</h2>
         </header>
