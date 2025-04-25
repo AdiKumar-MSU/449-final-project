@@ -32,7 +32,7 @@ function KeywordSearch() {
       const { error: deleteError } = await supabase
         .from('search_logs')
         .delete()
-        .neq('id', 0); // Or just .delete() without condition
+        .neq('id', 0);
     
       if (deleteError) {
         console.error('Error deleting old data:', deleteError);
