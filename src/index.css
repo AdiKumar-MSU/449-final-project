@@ -55,11 +55,9 @@
   background-color: white;
 }
 
-.GenerateButton {
-  color: black;
-  background-color: white;
-  border: 2px solid red;
-  padding: 0.5em 1em;
-  font-size: 18px;
-  border-radius: 4px;
+.logo {
+  position: absolute;
+  top: 30px;
+  left: 50px;
+  width: 200px;
 }
