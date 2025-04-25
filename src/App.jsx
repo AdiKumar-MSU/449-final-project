@@ -133,7 +133,7 @@ function App() {
   )
 }
 
-export default KeywordSearch; App
+
 
 export default App;
 export {KeywordSearch};
