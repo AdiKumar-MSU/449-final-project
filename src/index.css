@@ -58,8 +58,8 @@
 
 .datebuttons {
   display: flex;
-  gap: 1rem; /* adds space between the inputs */
-  justify-content: center; /* centers the inputs horizontally */
+  gap: 1rem; 
+  justify-content: center; 
   margin-top: 1rem;
 }
 
