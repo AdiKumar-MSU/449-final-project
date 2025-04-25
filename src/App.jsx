@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react'
 import './App.css'
 import Axios from 'axios'
 import { supabase } from './supabase';
+import { useTheme } from './ThemeContext'; 
+import MyComponent from './components/MyComponent';
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 
@@ -84,8 +86,8 @@ function KeywordSearch() {
           placeholder="Search YouTube"
           />
 
-          <button type="submit">
-            Search
+          <button type="submit" className="SearchButton">
+            Generate Video
           </button>
         </form>
         
@@ -107,8 +109,10 @@ function KeywordSearch() {
 };
 
 function App() {
+  const { isDarkMode } = useTheme();
+
   return (
-    <>
+    <div data-theme={isDarkMode ? 'dark' : 'light'}>
       <div className="page">
         <header className="header">
           <h1 className = "title">CYTC</h1>
@@ -117,14 +121,14 @@ function App() {
         <div className="body">
           <h3 className="KeyWords">Enter Key Search Words:</h3>
           <h3 className="DateRange">Enter Date Range Here:</h3>
-          <button className="GenerateButton">Generate Video</button>
+          <KeywordSearch></KeywordSearch>
+          <MyComponent></MyComponent>
         </div>
       </div>
-    </>  
+    </div> 
   )
 }
 
-export default KeywordSearch; App
 
-
-
+export default App;
+export {KeywordSearch};
