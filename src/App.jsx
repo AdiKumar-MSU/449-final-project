@@ -1,7 +1,12 @@
+import './index.css'
 import { useState, useEffect } from 'react'
 import './App.css'
 import Axios from 'axios'
 import { supabase } from './supabase';
+import { useTheme } from './ThemeContext'; 
+import MyComponent from './components/MyComponent';
+import Logo from './assets/images/CYTC-Logo.png';
+
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 
@@ -10,7 +15,6 @@ function KeywordSearch() {
   const [searchTerm, setSearchTerm] = useState('');
   const [prevTerm, setPrevTerm] = useState('');
   const [displayVid, setDisplayVid] = useState('');
-
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
 
@@ -55,7 +59,7 @@ function KeywordSearch() {
           part: 'snippet',
           q: searchTerm,
           type: 'video',
-          maxResults: 20,
+          maxResults: 6,
           key: API_KEY,
           publishedAfter: startDate,
           publishedBefore: endDate
@@ -125,22 +129,31 @@ function KeywordSearch() {
     <>
       <div className="videoSearch">
         <form onSubmit={handleSubmit}>
-          <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
-          <input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
-          
-          <input
-          type="text"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="Search YouTube"
-          />
+          <div className="datebuttons">
+            <input type="date" 
+            value={startDate} 
+            onChange={(e) => setStartDate(e.target.value)} 
+            />
+            <input type="date" 
+            value={endDate} 
+            onChange={(e) => setEndDate(e.target.value)} 
+            />
+          </div>
+            
+          <div className="searchbox">
+            <input
+            type="text"
+            placeholder="Enter Keyword Here"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>    
 
-          <button type="submit">
-            Search
+          <button type="submit" className="SearchButton">
+            Generate Video
           </button>
         </form>
         
-
         <div className="video-list">
           {videos.length > 0 && (
             <iframe
@@ -157,5 +170,27 @@ function KeywordSearch() {
   );
 };
 
+function App() {
+  const { isDarkMode } = useTheme();
 
-export default KeywordSearch;
+  return (
+    <div data-theme={isDarkMode ? 'dark' : 'light'}>
+      <div className="page">
+        <header className="header">
+          <img src={Logo} alt ="CYTC Logo" className="logo"/>
+          <h1 className = "title">CYTC</h1>
+          <h2 className = "yellow">Custom Youtube Cinema</h2>
+        </header>
+        <div className="body">
+          <KeywordSearch></KeywordSearch>
+          <MyComponent></MyComponent>
+        </div>
+      </div>
+    </div> 
+  )
+}
+
+
+
+export default App;
+export {KeywordSearch};
