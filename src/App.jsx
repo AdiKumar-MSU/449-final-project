@@ -130,6 +130,7 @@ function KeywordSearch() {
       <div className="videoSearch">
         <form onSubmit={handleSubmit}>
           <div className="form">
+            <h3>Enter Date Range Here:</h3>
             <div className="datebuttons">
               <input type="date" 
               value={startDate} 
