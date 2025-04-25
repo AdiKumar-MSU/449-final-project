@@ -44,7 +44,6 @@
 }
 
 .body {
-  /*background: linear-gradient(180deg, #FFF 62.02%, #A5A4A4 100%);*/
   background-color: var(--background-color);
   color: var(--text-color);
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -58,8 +57,8 @@
 
 .datebuttons {
   display: flex;
-  gap: 1rem; /* adds space between the inputs */
-  justify-content: center; /* centers the inputs horizontally */
+  gap: 1rem; 
+  justify-content: center; 
   margin-top: 1rem;
 }
 
@@ -94,9 +93,6 @@
   font-size: 18px;
   border-radius: 10px;
   text-align: center;
-  display: flex;
-  justify-content: center;
-  
 }
 
 .DarkMode { 
@@ -108,4 +104,13 @@
   border-radius: 8px;
   padding-left: 5px;
   padding-right: 5px;
+}
+
+.form {
+  display: flex;
+  font-family: sans-serif;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem; 
+  margin-top: 2rem;
 }

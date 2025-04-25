@@ -129,29 +129,31 @@ function KeywordSearch() {
     <>
       <div className="videoSearch">
         <form onSubmit={handleSubmit}>
-          <div className="datebuttons">
-            <input type="date" 
-            value={startDate} 
-            onChange={(e) => setStartDate(e.target.value)} 
-            />
-            <input type="date" 
-            value={endDate} 
-            onChange={(e) => setEndDate(e.target.value)} 
-            />
-          </div>
+          <div className="form">
+            <h3>Enter Date Range Here:</h3>
+            <div className="datebuttons">
+              <input type="date" 
+              value={startDate} 
+              onChange={(e) => setStartDate(e.target.value)} 
+              />
+              <input type="date" 
+              value={endDate} 
+              onChange={(e) => setEndDate(e.target.value)} 
+              />
+            </div>
             
-          <div className="searchbox">
-            <input
-            type="text"
-            placeholder="Enter Keyword Here"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          </div>    
-
-          <button type="submit" className="SearchButton">
+            <div className="searchbox">
+              <input
+              type="text"
+              placeholder="Enter Keyword Here"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div> 
+            <button type="submit" className="SearchButton">
             Generate Video
-          </button>
+            </button>
+          </div>   
         </form>
         
         <div className="video-list">
