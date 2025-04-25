@@ -41,16 +41,18 @@
   min-height: 100vh;
 }
 
-.KeyWords {
-color: black;
-font-size: 18px;
-margin-bottom: 2em;
+.datebuttons {
+  display: flex;
+  gap: 1rem; /* adds space between the inputs */
+  justify-content: center; /* centers the inputs horizontally */
+  margin-top: 1rem;
 }
 
-.DateRange {
-color: black;
-font-size: 18px;
-margin-bottom: 2em;
+.datebuttons input[type="date"] {
+  padding: 0.5rem;
+  border: 2px solid black;
+  border-radius: 8px;
+  background-color: white;
 }
 
 .GenerateButton {

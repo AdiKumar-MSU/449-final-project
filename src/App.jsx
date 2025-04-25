@@ -74,22 +74,28 @@ function KeywordSearch() {
     <>
       <div className="videoSearch">
         <form onSubmit={handleSubmit}>
-          <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
-          <input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
-          
-          <input
-          type="text"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="Search YouTube"
-          />
+          <div className="datebuttons">
+            <input type="date" 
+            value={startDate} 
+            onChange={(e) => setStartDate(e.target.value)} 
+            />
+            <input type="date" 
+            value={endDate} 
+            onChange={(e) => setEndDate(e.target.value)} 
+            />
+          </div>
+            
+            <input
+            type="text"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            />
 
           <button type="submit">
             Search
           </button>
         </form>
         
-
         <div className="video-list">
           {videos.length > 0 && (
             <iframe
@@ -115,16 +121,15 @@ function App() {
           <h2 className = "yellow">Custom Youtube Cinema</h2>
         </header>
         <div className="body">
-          <h3 className="KeyWords">Enter Key Search Words:</h3>
-          <h3 className="DateRange">Enter Date Range Here:</h3>
-          <button className="GenerateButton">Generate Video</button>
+          <KeywordSearch></KeywordSearch>
         </div>
       </div>
     </>  
   )
 }
 
-export default KeywordSearch; App
+export { KeywordSearch };
+export default App;
 
 
 
