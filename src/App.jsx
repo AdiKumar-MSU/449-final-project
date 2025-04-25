@@ -23,6 +23,32 @@ function KeywordSearch() {
 
   const searchYT = async (searchTerm, endDate, startDate) => {
 
+    const overwriteData = async (newVideos) => {
+      // 1. Delete all existing records
+      const { error: deleteError } = await supabase
+        .from('search_logs')
+        .delete()
+        .neq('id', 0); // Or just .delete() without condition
+    
+      if (deleteError) {
+        console.error('Error deleting old data:', deleteError);
+        return;
+      }
+    
+      const formattedVideos = newVideos.map((video, index) => ({
+        id: index,
+        video_id: video.id.videoId,
+      }));
+    
+      const { error: insertError } = await supabase
+        .from('search_logs')
+        .upsert(formattedVideos, {onConflict: 'id'});
+    
+      if (insertError) {
+        console.error('Error inserting new data:', insertError);
+      }
+    };
+    
     const res = await Axios.get(
       'https://www.googleapis.com/youtube/v3/search', {
         params: {
@@ -42,20 +68,33 @@ function KeywordSearch() {
     setPrevEndDate(endDate);
     setPrevStartDate(startDate);
     
-    if (res.data.items.length > 0) {
-      const randomIndex = Math.floor(Math.random() * res.data.items.length);
-      const selectedVideo = res.data.items[randomIndex];
-      setDisplayVid(selectedVideo);
+    await overwriteData(res.data.items);
 
-      await supabase.from('search_logs').insert([
-        { video_id: selectedVideo.id.videoId }
-      ]);
+    if (res.data.items.length > 0) {
+      const randomIndex = Math.floor(Math.random() * videos.length);
+      const getSupabaseLink = async () => {
+        const {data, error } = await supabase.from('search_logs').select('video_id').eq('id', randomIndex)
+        
+        if (error) {
+          console.error('Error fetching log:', error);
+        }
+
+        return data[0].video_id;
+      };
+
+      const videoLink = await getSupabaseLink();
+      setDisplayVid(videoLink);
+      console.log(displayVid);
     } else if (res.data.items.length == 0) {
       return 'No Videos Found!'
     }
+
   };
 
-  const handleSubmit = (e) => {
+
+
+
+  const handleSubmit = async(e) => {
     e.preventDefault();
 
     if (searchTerm.trim() !== prevTerm.trim() || 
@@ -65,7 +104,19 @@ function KeywordSearch() {
     } else {
       if (videos.length > 0) {
         const randomIndex = Math.floor(Math.random() * videos.length);
-        setDisplayVid(videos[randomIndex]);
+
+        const getSupabaseLink = async () => {
+          const {data, error } = await supabase.from('search_logs').select('video_id').eq('id', randomIndex)
+          
+          if (error) {
+            console.error('Error fetching log:', error);
+          }
+
+          return data[0].video_id;
+        };
+
+        const videoLink = await getSupabaseLink();
+        setDisplayVid(videoLink);
       }
     }
   };
@@ -95,7 +146,7 @@ function KeywordSearch() {
             <iframe
               width="560"
               height="315"
-              src={`https://www.youtube.com/embed/${displayVid.id.videoId}`}
+              src={`https://www.youtube.com/embed/${displayVid}`}
               allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
             />
