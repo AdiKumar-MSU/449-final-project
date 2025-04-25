@@ -2,6 +2,7 @@ import './index.css'
 import { useState, useEffect } from 'react'
 import './App.css'
 import Axios from 'axios'
+import { supabase } from './supabase';
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 
@@ -12,7 +13,14 @@ function KeywordSearch() {
   const [displayVid, setDisplayVid] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+
+  const [prevStartDate, setPrevStartDate] = useState('');
+  const [prevEndDate, setPrevEndDate] = useState('');
   
+  const formatDate = (dateString) => {
+    return dateString ? `${dateString}T00:00:00Z` : null;
+  };
+
   const searchYT = async (searchTerm, endDate, startDate) => {
 
     const res = await Axios.get(
@@ -30,17 +38,30 @@ function KeywordSearch() {
     );
     setVideos(res.data.items);
     setPrevTerm(searchTerm);
+
+    setPrevEndDate(endDate);
+    setPrevStartDate(startDate);
     
     if (res.data.items.length > 0) {
       const randomIndex = Math.floor(Math.random() * res.data.items.length);
-      setDisplayVid(res.data.items[randomIndex]);
+      const selectedVideo = res.data.items[randomIndex];
+      setDisplayVid(selectedVideo);
+
+      await supabase.from('search_logs').insert([
+        { video_id: selectedVideo.id.videoId }
+      ]);
+    } else if (res.data.items.length == 0) {
+      return 'No Videos Found!'
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (searchTerm.trim() != prevTerm.trim()) {
-      searchYT(searchTerm, endDate, startDate);
+
+    if (searchTerm.trim() !== prevTerm.trim() || 
+    formatDate(endDate) !== prevEndDate || 
+    formatDate(startDate) !== prevStartDate) {
+      searchYT(searchTerm, formatDate(endDate), formatDate(startDate));
     } else {
       if (videos.length > 0) {
         const randomIndex = Math.floor(Math.random() * videos.length);
