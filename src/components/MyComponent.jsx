@@ -5,7 +5,7 @@ function MyComponent() {
   const { isDarkMode, toggleTheme } = useTheme();
 
   return (
-    <div>
+    <div className="DarkMode">
       <button onClick={toggleTheme}>
         {isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
       </button>

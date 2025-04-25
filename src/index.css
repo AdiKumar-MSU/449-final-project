@@ -68,6 +68,15 @@
   border: 2px solid black;
   border-radius: 8px;
   background-color: white;
+  color: black;
+}
+
+.searchbox input[type="text"] {
+  padding: 0.5rem;
+  border: 2px solid black;
+  border-radius: 8px;
+  background-color: white;
+  color: black;
 }
 
 .logo {
@@ -85,4 +94,18 @@
   font-size: 18px;
   border-radius: 10px;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  
+}
+
+.DarkMode { 
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: white;
+  border: 2px solid white;
+  border-radius: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
 }

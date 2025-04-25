@@ -89,11 +89,14 @@ function KeywordSearch() {
             />
           </div>
             
+          <div className="searchbox">
             <input
             type="text"
+            placeholder="Enter Keyword Here"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             />
+          </div>    
 
           <button type="submit" className="SearchButton">
             Generate Video
