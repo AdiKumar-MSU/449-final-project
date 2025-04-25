@@ -41,7 +41,7 @@ function KeywordSearch() {
     setPrevTerm(searchTerm);
 
     setPrevEndDate(endDate);
-    svvvetPrevStartDate(startDate);
+    setPrevStartDate(startDate);
     
     if (res.data.items.length > 0) {
       const randomIndex = Math.floor(Math.random() * res.data.items.length);
